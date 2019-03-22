@@ -1,6 +1,8 @@
 # YouTrack Integration for XL Release
 
 [![Build Status][xlr-youtrack-plugin-travis-image]][xlr-youtrack-plugin-travis-url]
+![GitHub release](https://img.shields.io/github/release/xebialabs-community/xlr-youtrack-plugin.svg)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/69e1ca3ab3a14a30bb60499becbb61dc)](https://www.codacy.com/app/ndebuhr/xlr-youtrack-plugin?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=xebialabs-community/xlr-youtrack-plugin&amp;utm_campaign=Badge_Grade)
 [![License: MIT][xlr-youtrack-plugin-license-image]][xlr-youtrack-plugin-license-url]
 [![Github All Releases][xlr-youtrack-plugin-downloads-image]][xlr-youtrack-plugin-releases-url]
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-blue.svg)](https://github.com/RichardLitt/standard-readme)
