@@ -9,9 +9,6 @@
 #
 
 import sys
-import time
-import traceback
-import urllib
 from yt.Server import YtClient
 
 if query is None:

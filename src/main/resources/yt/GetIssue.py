@@ -9,8 +9,6 @@
 #
 
 import sys
-import time
-import traceback
 from yt.Server import YtClient
 
 if issueId is None:
