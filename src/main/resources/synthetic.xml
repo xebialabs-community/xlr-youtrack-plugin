@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright 2019 XEBIALABS
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+-->
+
+<synthetic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns="http://www.xebialabs.com/deployit/synthetic"
+           xsi:schemaLocation="http://www.xebialabs.com/deployit/synthetic synthetic.xsd">
+
+    <type type="youtrack.Task" extends="xlrelease.PythonScript" virtual="true">
+        <property name="iconLocation" default="yt/youtrack-icon.png" hidden="true"/>
+
+        <property name="server" category="input" label="Server" referenced-type="youtrack.Server" kind="ci"/>
+        <property name="username" category="input" description="Username to overwrite the server configuration username (optional)" required="false"/>
+        <property name="password" password="true" category="input" description="Password to overwrite the server configuration password (optional)" required="false"/>
+    </type>
+
+
+    <type type="youtrack.GetIssue" extends="youtrack.Task">
+        <property name="scriptLocation" default="yt/GetIssue.py" hidden="true"/>
+
+        <property name="issueId" category="input" label="Issue Id" required="true"/>
+
+        <property name="data" category="output"/>
+    </type>
+
+
+    <type type="youtrack.UpdateIssuesByQuery" extends="youtrack.Task">
+        <property name="scriptLocation" default="yt/UpdateIssuesByQuery.py" hidden="true"/>
+
+        <property name="comment" category="input" description="Comment to add to the update" default="update fields by XL Release"/>
+        <property name="query" category="input" description="See https://www.jetbrains.com/help/youtrack/standalone/Get-the-List-of-Issues.html for how to specify a filter. You don't have to escape it."/>
+        <property name="fieldsToUpdate" category="input" kind="map_string_string" required="true" description="Provide the key and value of fields you want to update in the ticket"/>
+    </type>
+
+
+    <type type="youtrack.PollingCheckStatusQuery" extends="youtrack.Task">
+        <property name="scriptLocation" default="yt/PollingCheckStatusQuery.py" hidden="true"/>
+
+        <property name="query" category="input" label="Query" required="true" description="See https://www.jetbrains.com/help/youtrack/standalone/Get-the-List-of-Issues.html for how to specify a filter. You don't have to escape it."/>
+
+        <property name="statusField" category="input" default="State" hidden="true"/>
+        <property name="pollInterval" category="input" kind="integer" label="Polling Interval" required="true" default="5"/>
+        <property name="checkForStatus" category="input" label="Status Value to check for" required="true"/>
+    </type>
+
+
+    <type type="youtrack.PollingCheckStatus" extends="youtrack.Task">
+        <property name="scriptLocation" default="yt/PollingCheckStatus.py" hidden="true"/>
+
+        <property name="issueId" category="input" label="Issue Id" required="true"/>
+        <property name="statusField" category="input" default="State" hidden="true"/>
+        <property name="pollInterval" category="input" kind="integer" label="Polling Interval" required="true" default="5"/>
+        <property name="checkForStatus" category="input" label="Status Value to check for" required="true"/>
+
+        <property name="status" category="output"/>
+        <property name="data" category="output"/>
+    </type>
+
+
+    <type type="youtrack.Server" extends="configuration.HttpConnection">
+        <property name="scriptLocation" hidden="true" default="yt/TestConnection.py"/>
+        <property name="token" category="Authentication" required="false" description="if not using username/password, you can use a permanent token to log into YouTrack." />
+        <property name="domain" required="false" hidden="true" />
+        <property name="proxyHost" required="false" hidden="true" />
+        <property name="proxyUsername" required="false" hidden="true" />
+        <property name="proxyPassword" password="true" required="false" hidden="true" />
+        <property name="proxyPort" required="false" hidden="true"/>
+    </type>
+
+</synthetic>
