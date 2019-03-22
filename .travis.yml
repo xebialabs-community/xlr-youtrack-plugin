@@ -12,4 +12,4 @@ deploy:
   on:
     all_branches: true
     tags: true
-    repo: xebialabs-community/xlr-teamcity-plugin
+    repo: xebialabs-community/xlr-youtrack-plugin
