@@ -5,18 +5,12 @@
 [![Github All Releases][xlr-youtrack-plugin-downloads-image]][xlr-youtrack-plugin-releases-url]
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-blue.svg)](https://github.com/RichardLitt/standard-readme)
 
-[xlr-youtrack-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin.svg?branch=master
-[xlr-youtrack-plugin-travis-url]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin
-[xlr-youtrack-plugin-license-image]: https://img.shields.io/badge/license-MIT-yellow.svg
-[xlr-youtrack-plugin-license-url]: https://opensource.org/licenses/MIT
-[xlr-youtrack-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-youtrack-plugin/total.svg
-[xlr-youtrack-plugin-releases-url]: https://github.com/xebialabs-community/xlr-youtrack-plugin/releases
-
 > The YouTrack plugin enables the automated tracking and updating of YouTrack issues through XL Release
 
 ## Installation
 
 ### Requirements
+
 1. XL Release 8.0+
 
 ### Building the plugin
@@ -51,3 +45,10 @@ Please review the contributing guidelines for _xebialabs-community_ at [http://x
 This community plugin is licensed under the [MIT license][xlr-youtrack-plugin-license-url].
 
 See license in [LICENSE.md](LICENSE.md)
+
+[xlr-youtrack-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin.svg?branch=master
+[xlr-youtrack-plugin-travis-url]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin
+[xlr-youtrack-plugin-license-image]: https://img.shields.io/badge/license-MIT-yellow.svg
+[xlr-youtrack-plugin-license-url]: https://opensource.org/licenses/MIT
+[xlr-youtrack-plugin-downloads-image]: https://img.shields.io/github/downloads/xebialabs-community/xlr-youtrack-plugin/total.svg
+[xlr-youtrack-plugin-releases-url]: https://github.com/xebialabs-community/xlr-youtrack-plugin/releases
