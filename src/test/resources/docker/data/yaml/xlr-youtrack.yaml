@@ -1,0 +1,8 @@
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- name: YouTrack Server
+  type: youtrack.Server
+  url: http://yt:8080
+  username: admin
+  password: admin
