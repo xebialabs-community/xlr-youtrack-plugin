@@ -48,6 +48,9 @@ This community plugin is licensed under the [MIT license][xlr-youtrack-plugin-li
 
 See license in [LICENSE.md](LICENSE.md)
 
+## References:
+1. https://hub.docker.com/r/jetbrains/youtrack/
+
 [xlr-youtrack-plugin-travis-image]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin.svg?branch=master
 [xlr-youtrack-plugin-travis-url]: https://travis-ci.org/xebialabs-community/xlr-youtrack-plugin
 [xlr-youtrack-plugin-license-image]: https://img.shields.io/badge/license-MIT-yellow.svg
