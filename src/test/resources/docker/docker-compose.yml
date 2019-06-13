@@ -19,7 +19,7 @@ yt:
       - "9180:8080"
 
 xlr:
-  image: xebialabsunsupported/xlr_dev_run:v8.0.0.2
+  image: xebialabsunsupported/xlr_dev_run:8.6.1
   volumes:
     - ~/xl-licenses:/license
     - ./../../../../:/data

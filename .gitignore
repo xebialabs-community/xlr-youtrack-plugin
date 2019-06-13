@@ -3,7 +3,3 @@
 build
 temp
 supervisord.*
-src/test/resources/docker/youtrak/conf/*
-src/test/resources/docker/youtrak/data/*
-src/test/resources/docker/youtrak/logs/*
-src/test/resources/docker/youtrak/backups/*
