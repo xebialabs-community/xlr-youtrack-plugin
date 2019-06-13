@@ -3,3 +3,7 @@
 build
 temp
 supervisord.*
+src/test/resources/docker/youtrack/conf/*
+src/test/resources/docker/youtrack/data/*
+src/test/resources/docker/youtrack/logs/*
+src/test/resources/docker/youtrack/backups/*
