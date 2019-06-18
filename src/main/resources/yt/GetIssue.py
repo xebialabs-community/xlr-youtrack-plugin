@@ -14,4 +14,11 @@ from yt.Server import YtClient
 if issueId is None:
     sys.exit("No issue id provided.")
 
-data = YtClient(server, username, password).getIssue(issueId)
+issue = YtClient(server, username, password).getIssue(issueId)
+
+data={}
+print("| key | value |")
+print("|-----|-------|")
+for key in issue:
+    data[key]=issue[key]
+    print("| %s | %s |" %(key, issue[key]))

@@ -27,7 +27,7 @@ status = None
 allIssuesStatusMet = False
 while not allIssuesStatusMet:
     try:
-        foundIssues = yt.getAllIssues(query, withFields=[statusField])
+        foundIssues = youtrack.getAllIssues(query, withFields=[statusField])
 
         print "Found [%s] issues for query [%s] in YouTrack.\n" % (len(foundIssues), query)
 

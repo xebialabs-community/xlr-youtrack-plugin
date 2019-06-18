@@ -9,12 +9,7 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<div data-ng-controller="yt.ytQueryTileViewController as ytQueryTile" class="service-now-query-tile">
-    <div ng-click="ytQueryTile.refresh()" title="Refresh" class="button primary">
-        <i class="glyphicon glyphicon-refresh"></i> Refresh
-    </div>
-    <div data-ng-if="ytQueryTile.gridOptions && !ytQueryTile.loading" ui-grid="ytQueryTile.gridOptions" class="grid-container" />
-    <div data-ng-if="ytQueryTile.loading" class="spinner" style="text-align: center">
-        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..." />
-    </div>
+<div class="ui-grid-cell-contents labels">
+    <span style="background-color: {{row.entity.color}}" class="circle"></span>
+    <span><a data-ng-if="row.entity.id" data-ng-href="{{row.entity.link}}" target="_blank">{{ row.entity.id }}</a></span>
 </div>

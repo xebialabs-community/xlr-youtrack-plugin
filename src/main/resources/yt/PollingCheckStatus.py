@@ -27,7 +27,7 @@ status = None
 statusMatchFound = False
 while not statusMatchFound:
     try:
-        data = yt.getIssue(issueId)
+        data = youtrack.getIssue(issueId)
 
         status = data[statusField]
 

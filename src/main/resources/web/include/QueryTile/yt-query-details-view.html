@@ -9,10 +9,12 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns="http://www.xebialabs.com/deployit/ui-plugin"
-        xsi:schemaLocation="http://www.xebialabs.com/deployit/ui-plugin xl-ui-plugin.xsd">
-
-    <library name="xlrelease.youtrack.tile"/>
-
-</plugin>
+<div data-ng-controller="xlrelease.yt.QueryTileViewController as QueryTile" class="yt-query-tile">
+    <div ng-click="QueryTile.refresh()" title="Refresh" class="button primary">
+        <i class="glyphicon glyphicon-refresh"></i> Refresh
+    </div>
+    <div data-ng-if="QueryTile.gridOptions && !QueryTile.loading" ui-grid="QueryTile.gridOptions" class="grid-container" />
+    <div data-ng-if="QueryTile.loading" class="spinner" style="text-align: center">
+        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..." />
+    </div>
+</div>

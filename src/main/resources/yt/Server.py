@@ -10,9 +10,13 @@
 
 
 from youtrack.connection import Connection as YouTrack
+import org.slf4j.Logger as Logger
+import org.slf4j.LoggerFactory as LoggerFactory
 
 class YtClient(object):
+
     def __init__(self, server, username, password):
+        self.logger = LoggerFactory.getLogger("com.xebialabs.yourtrack.Server")
         if server is None:
             sys.exit("No server provided.")
         if username is not None:
@@ -35,6 +39,9 @@ class YtClient(object):
         return self.youtrack.getIssue(issueId)
 
     def getAllIssues(self, query, withFields):
+        self.logger.error("getAllIssues")
+        self.logger.error("Query = %s" % query)
+        self.logger.error("Fields = %s" % withFields)
         return self.youtrack.getAllIssues(filter=query, withFields=withFields)
 
     def updateIssuesByQuery(self, query, fieldsToUpdate, comment):
@@ -44,3 +51,7 @@ class YtClient(object):
         foundIssues = self.youtrack.getAllIssues(filter=query, withFields=[])
         for issue in foundIssues:
             self.youtrack.executeCommand(issue['id'], command, comment)
+
+    def getIssuesByQuery(self, query, fieldList=[]):
+        self.logger.error("getIssuesByQuery")
+        return self.youtrack.getAllIssues(filter=query, withFields=[])

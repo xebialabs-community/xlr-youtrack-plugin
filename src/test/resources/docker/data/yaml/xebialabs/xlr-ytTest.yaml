@@ -1,0 +1,44 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: YouTrack
+  children:
+  - template: ytTest
+    scheduledStartDate: 2019-06-13T14:00:00Z
+    phases:
+    - phase: New Phase
+      tasks:
+      - name: Get Issue
+        type: youtrack.GetIssue
+        server: YouTrack Server
+        issueId: SAN-295
+      - name: GATE
+        type: xlrelease.GateTask
+    riskProfile: Default risk profile
+  - type: xlrelease.Dashboard
+    owner: admin
+    tiles:
+    - name: Release progress
+      type: xlrelease.ReleaseProgressTile
+    - name: Release summary
+      type: xlrelease.ReleaseSummaryTile
+    - name: Resource usage
+      type: xlrelease.ResourceUsageTile
+      row: 1
+    - name: Release timeline
+      type: xlrelease.TimelineTile
+      row: 2
+    - name: Release health
+      type: xlrelease.ReleaseHealthTile
+    - name: YouTrack tickets
+      type: youtrack.QueryTile
+      row: 1
+      col: 2
+      server: YouTrack Server
+      query: 'by: rbroker'
+      detailsViewColumns:
+        id: id
+        description: description
+        State: State
+    parentTemplate: ytTest

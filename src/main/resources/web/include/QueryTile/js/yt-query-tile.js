@@ -11,19 +11,17 @@
 
 (function () {
 
-    var ytQueryTileViewController = function ($scope, ytQueryService, XlrTileHelper) {
+    var QueryTileViewController = function ($scope, QueryService, XlrTileHelper) {
         var vm = this;
         var tile;
-        var config;
+
         var predefinedColors = [];
-        predefinedColors['New'] = '#7E827A';
-        predefinedColors['Active'] = '#4AA0C8';
-        predefinedColors['Open'] = '#FFA500';
-        predefinedColors['Awaiting Problem'] = '#7E8AA2';
-        predefinedColors['Awaiting User Info'] = '#7FB2F0';
-        predefinedColors['Awaiting Evidence'] = '#45BF55';
-        predefinedColors['Resolved'] = '#FFE11A';
-        predefinedColors['Closed'] = '#FFA500';
+        predefinedColors['Undefined'] = '#7E827A';
+        predefinedColors['Defined'] = '#4AA0C8';
+        predefinedColors['In-Progress'] = '#FFA500';
+        predefinedColors['Completed'] = '#7E8AA2';
+        predefinedColors['Accepted'] = '#7FB2F0';
+        predefinedColors['Production'] = '#45BF55';
 
 
         var colorPool = [
@@ -48,6 +46,7 @@
         }
 
         function tileConfigurationIsPopulated() {
+            var config;
             // old style pre 7.0
             if (tile.properties == null) {
                 config = tile.configurationProperties;
@@ -55,7 +54,7 @@
                 // new style since 7.0
                 config = tile.properties;
             }
-            return !_.isEmpty(config.youtrack.Server);
+            return !_.isEmpty(config.server);
         }
 
         function getColor(value) {
@@ -65,10 +64,10 @@
 
         function getTitle(){
             if(vm.issuesSummaryData.total > 1){
-                return "tickets";
+                return "records";
             }
             else{
-                return "ticket";
+                return "record";
             }
         }
 
@@ -79,11 +78,11 @@
             bottomTitleText: getTitle,
             series: function (data) {
                 var series = {
-                    name: 'State',
+                    name: 'ScheduleState',
                     data: []
                 };
                 series.data = _.map(data.data, function (value) {
-                    return {y: value.counter, name: value.state, color: value.color};
+                    return {y: value.counter, name: value.schedulestate, color: value.color};
                 });
                 return [ series ];
             },
@@ -94,7 +93,7 @@
         function load(config) {
             if (tileConfigurationIsPopulated()) {
                 vm.loading = true;
-                ytQueryService.executeQuery(tile.id, config).then(
+                QueryService.executeQuery(tile.id, config).then(
                     function (response) {
                         var ytIssueArray = [];
                         var issues = response.data.data;
@@ -110,18 +109,18 @@
                                 total: 0
                             };
                             vm.issuesSummaryData.data = _.reduce(issues, function (result, value) {
-                                var state = value.state;
+                                var schedulestate = value.State;
                                 vm.issuesSummaryData.total += 1;
-                                if (result[state]) {
-                                result[state].counter += 1;
+                                if (result[schedulestate]) {
+                                result[schedulestate].counter += 1;
                             } else {
-                                result[state] = {
+                                result[schedulestate] = {
                                     counter: 1,
-                                    color: getColor(state),
-                                    state: state
+                                    color: getColor(schedulestate),
+                                    schedulestate: schedulestate
                                 };
                             }
-                            value.color = result[state].color;
+                            value.color = result[schedulestate].color;
                             ytIssueArray.push(value);
                             return result;
 
@@ -141,22 +140,33 @@
         }
 
         function createGridOptions(ytData) {
-            var filterHeaderTemplate = `<div data-ng-include="partials/releases/grid/templates/name-filter-template.html"></div>`;
+            var filterHeaderTemplate = "<div data-ng-include=\"'static/@project.version@/include/QueryTile/grid/name-filter-template.html'\"></div>";
             var columnDefs = [
                     {
-                        displayName: "Number",
-                        field: "number",
-                        cellTemplate: "static/@project.version@/include/ytQueryTile/grid/number-cell-template.html",
+                        displayName: "Ticket",
+                        field: "id",
+                        cellTemplate: "static/@project.version@/include/QueryTile/grid/id-cell-template.html",
                         filterHeaderTemplate: filterHeaderTemplate,
-                        enableColumnMenu: true,
-                        width: '18%'
+                        enableColumnMenu: false,
+                        width: '10%'
+                    },
+                    {
+                        displayName: "State",
+                        field: "State",
+                        cellTemplate: "static/@project.version@/include/QueryTile/grid/state-cell-template.html",
+                        filterHeaderTemplate: filterHeaderTemplate,
+                        enableColumnMenu: false,
+                        width: '20%'
+                    },
+                    {
+                        displayName: "Description",
+                        field: "description",
+                        cellTemplate: "static/@project.version@/include/QueryTile/grid/description-cell-template.html",
+                        filterHeaderTemplate: filterHeaderTemplate,
+                        enableColumnMenu: false,
+                        width: '70%'
                     }
                 ];
-            for (var key in config.detailsViewColumns['value']) {
-                if (key != "number") {
-                    columnDefs.push({displayName: key, field: key, filterHeaderTemplate: filterHeaderTemplate, enableColumnMenu: true})
-                }
-            };
             return XlrTileHelper.getGridOptions(ytData, columnDefs);
         }
 
@@ -169,9 +179,9 @@
         vm.refresh = refresh;
     };
 
-    ytQueryTileViewController.$inject = ['$scope', 'xlrelease.yt.ytQueryService', 'XlrTileHelper'];
+    QueryTileViewController.$inject = ['$scope', 'xlrelease.yt.QueryService', 'XlrTileHelper'];
 
-    var ytQueryService = function (Backend) {
+    var QueryService = function (Backend) {
 
         function executeQuery(tileId, config) {
             return Backend.get("/tiles/" + tileId + "/data", config);
@@ -181,10 +191,10 @@
         };
     };
 
-    ytQueryService.$inject = ['Backend'];
+    QueryService.$inject = ['Backend'];
 
-    angular.module('xlrelease.yt.tile', []);
-    angular.module('xlrelease.yt.tile').service('xlrelease.yt.ytQueryService', ytQueryService);
-    angular.module('xlrelease.yt.tile').controller('yt.ytQueryTileViewController', ytQueryTileViewController);
+    angular.module('xlrelease.youtrack.tile', []);
+    angular.module('xlrelease.youtrack.tile').service('xlrelease.yt.QueryService', QueryService);
+    angular.module('xlrelease.youtrack.tile').controller('xlrelease.yt.QueryTileViewController', QueryTileViewController);
 
 })();

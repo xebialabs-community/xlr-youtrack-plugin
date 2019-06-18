@@ -7,52 +7,52 @@
  *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-.service-now-query-summary-container {
+.yt-query-summary-container {
   width: 90%;
   margin: auto;
 }
 
-.service-now-query-table {
+.yt-query-table {
   width: 100%;
 }
 
-.service-now-query-right {
+.yt-query-right {
   text-align: right;
   margin-right: 1em;
 }
 
-.service-now-query-tile ul {
+.yt-query-tile ul {
   list-style-type: none;
   padding: 0;
   margin: 0;
 }
 
-.service-now-query-tile li {
+.yt-query-tile li {
   margin-top: 4px;
 }
 
-.service-now-query-tile .legend {
+.yt-query-tile .legend {
   margin-top: 40px;
 }
 
-.service-now-query-tile .counter {
+.yt-query-tile .counter {
   text-align: center;
 }
 
-.service-now-query-tile .grid-container {
+.yt-query-tile .grid-container {
   margin-top: 15px;
 }
 
-.service-now-query-tile .ui-grid-viewport {
+.yt-query-tile .ui-grid-viewport {
   overflow-x: hidden !important;
   overflow-y: scroll;
 }
 
-.service-now-query-tile .highcharts-two-part-title {
+.yt-query-tile .highcharts-two-part-title {
   line-height: 22px;
 }
 
-.service-now-query-tile .no-results {
+.yt-query-tile .no-results {
   margin: 70px 10px;
   font-size: 14px;
   font-weight: 400;

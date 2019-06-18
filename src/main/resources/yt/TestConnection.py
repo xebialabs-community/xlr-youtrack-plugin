@@ -21,4 +21,4 @@ else:
     # versus authentication with username and password
     yt = YouTrack(configuration.url, login=configuration['username'], password=configuration['password'])
 
-logger.info(str(yt.getUsers()))
+logger.info(str(youtrack.getUsers()))

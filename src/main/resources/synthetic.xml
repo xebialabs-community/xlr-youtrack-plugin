@@ -25,11 +25,10 @@
 
 
     <type type="youtrack.GetIssue" extends="youtrack.Task">
-        <property name="scriptLocation" default="yt/GetIssue.py" hidden="true"/>
-
+        <property name="scriptLocation" hidden="true" default="yt/GetIssue.py"/>
         <property name="issueId" category="input" label="Issue Id" required="true"/>
 
-        <property name="data" category="output"/>
+        <property name="data" category="output" kind="map_string_string"/>
     </type>
 
 
@@ -43,8 +42,7 @@
 
 
     <type type="youtrack.PollingCheckStatusQuery" extends="youtrack.Task">
-        <property name="scriptLocation" default="yt/PollingCheckStatusQuery.py" hidden="true"/>
-
+        <property name="scriptLocation" hidden="true" default="yt/PollingCheckStatusQuery.py"/>
         <property name="query" category="input" label="Query" required="true" description="See https://www.jetbrains.com/help/youtrack/standalone/Get-the-List-of-Issues.html for how to specify a filter. You don't have to escape it."/>
 
         <property name="statusField" category="input" default="State" hidden="true"/>
@@ -54,15 +52,14 @@
 
 
     <type type="youtrack.PollingCheckStatus" extends="youtrack.Task">
-        <property name="scriptLocation" default="yt/PollingCheckStatus.py" hidden="true"/>
-
+        <property name="scriptLocation" hidden="true" default="yt/PollingCheckStatus.py"/>
         <property name="issueId" category="input" label="Issue Id" required="true"/>
         <property name="statusField" category="input" default="State" hidden="true"/>
         <property name="pollInterval" category="input" kind="integer" label="Polling Interval" required="true" default="5"/>
         <property name="checkForStatus" category="input" label="Status Value to check for" required="true"/>
 
         <property name="status" category="output"/>
-        <property name="data" category="output"/>
+        <property name="data" category="output" />
     </type>
 
 
@@ -78,14 +75,15 @@
 
     <!-- ============ UI extensions: ============ -->
 
-    <type type="youtrack.ytQueryTile" label="YouTrack query tile" extends="xlrelease.Tile">
-        <property name="uri" hidden="true" default="include/ytQueryTile/yt-query-summary-view.html"/>
+    <type type="youtrack.QueryTile" label="YouTrack query tile" extends="xlrelease.Tile">
+        <property name="scriptLocation" hidden="true" default="yt/QueryTile.py"/>
+        <property name="uri" hidden="true" default="include/QueryTile/yt-query-summary-view.html"/>
         <property name="detailsUri" hidden="true"
-                  default="include/ytQueryTile/yt-query-details-view.html"/>
+                  default="include/QueryTile/yt-query-details-view.html"/>
         <property name="title" description="Tile title" default="YouTrack tickets"/>
         <property name="embedded" kind="boolean" hidden="true" default="true" required="false"/>
 
-        <property category="input" name="YouTrackServer" referenced-type="youtrack.Server" kind="ci" label="Server"
+        <property category="input" name="server" referenced-type="youtrack.Server" kind="ci" label="Server"
                   description="YouTrack server id to connect to"/>
         <property category="input" name="username" required="false"
                   description="Overrides the username used to connect to the server"/>

@@ -9,27 +9,24 @@
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 -->
-<div data-ng-controller="yt.ytQueryTileViewController as ytQueryTile" class="service-now-query-tile dashboard-tile">
+<div data-ng-controller="xlrelease.yt.QueryTileViewController as QueryTile" class="yt-query-tile dashboard-tile">
 
-    <div class="no-results" ng-if="ytQueryTile.invalidTableName">
-        yt table name is incorrect
+    <div class="no-results" ng-if=" !QueryTile.invalidTableName && QueryTile.statesCounter === 0">
+        There are no YouTrack issues found
     </div>
-    <div class="no-results" ng-if=" !ytQueryTile.invalidTableName && ytQueryTile.statesCounter === 0">
-        There are no yt issues found
-    </div>
-    <div ng-if="!ytQueryTile.invalidTableName && !ytQueryTile.loading && ytQueryTile.statesCounter > 0">
+    <div ng-if="!QueryTile.invalidTableName && !QueryTile.loading && QueryTile.statesCounter > 0">
         <div class="row">
             <div class="col-md-7">
-                <div class="highcharts-tile" donut-chart data="ytQueryTile.issuesSummaryData" options="ytQueryTile.chartOptions"></div>
+                <div class="highcharts-tile" donut-chart data="QueryTile.issuesSummaryData" options="QueryTile.chartOptions"></div>
             </div>
             <div class="col-md-5 hidden-xs hidden-sm">
                 <ul class="legend">
-                    <li class="row" ng-repeat="value in ytQueryTile.states | orderBy:'-counter'">
+                    <li class="row" ng-repeat="value in QueryTile.states | orderBy:'-counter'">
                         <span class="col-sm-1"><span class="circle" ng-style="{'background-color': value.color}"></span></span>
                         <span class="col-sm-1">{{value.counter}}</span>
                         <span class="col-sm-6">{{value.state}}</span>
                     </li>
-                    <li class="row" ng-if="ytQueryTile.statesCounter > 5">
+                    <li class="row" ng-if="QueryTile.statesCounter > 5">
                         <span class="col-sm-2"></span>
                         <span class="col-sm-6">More...</span>
                     </li>
@@ -38,7 +35,7 @@
         </div>
     </div>
 
-    <div ng-if="ytQueryTile.loading" class="spinner" style="text-align: center">
+    <div ng-if="QueryTile.loading" class="spinner" style="text-align: center">
         <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
     </div>
 
