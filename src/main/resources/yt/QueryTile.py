@@ -19,7 +19,7 @@ import org.slf4j.LoggerFactory as LoggerFactory
 
 
 logger = LoggerFactory.getLogger("com.xebialabs.QueryTile")
-logger.error("START")
+logger.debug("START")
 if not server:
     logger.error("YouTrack server ID must be provided")
     raise Exception("YouTrack server ID must be provided")
@@ -33,8 +33,8 @@ def get_row_data(item):
     row_map = {}
     for column in detailsViewColumns:
         try:
-            logger.error("for column = %s" % column)
-            logger.error("row_map[%s] = %s" % (column, item[column]))
+            logger.debug("for column = %s" % column)
+            logger.debug("row_map[%s] = %s" % (column, item[column]))
             row_map[column] = item[column]
         except:
             logger.error("column %s is bad" % column)
@@ -42,13 +42,11 @@ def get_row_data(item):
     return row_map
 
 
-logger.error("getIssuesByQuery - %s" % (query))
+logger.debug("getIssuesByQuery - %s" % (query))
 results = yt.getIssuesByQuery(query)
-logger.error("results = %s" % results)
-logger.error("results type = %s" % type(results))
-logger.error("results length = %s" % len(results))
+logger.debug("results = %s" % results)
 rows= []
-logger.error("START LOOP")
+logger.debug("START LOOP")
 number = 0
 for item in results:
     logger.error("record = %s" % item)
@@ -56,9 +54,6 @@ for item in results:
     rec = {}
     for key in item:
         rec[key] = item[key]
-    logger.error("BEFORE get_row_data: %s = %s" % ( row, rec))
-    #rows[row] = get_row_data(rec)
     rows.append( get_row_data(rec) )
-    logger.error("AFTER get_row_data: %s = %s" % ( row, rows))
-logger.error("END LOOP")
+logger.debug("END LOOP")
 data = rows

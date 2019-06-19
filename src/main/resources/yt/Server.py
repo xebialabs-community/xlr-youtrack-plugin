@@ -39,9 +39,9 @@ class YtClient(object):
         return self.youtrack.getIssue(issueId)
 
     def getAllIssues(self, query, withFields):
-        self.logger.error("getAllIssues")
-        self.logger.error("Query = %s" % query)
-        self.logger.error("Fields = %s" % withFields)
+        self.logger.debug("getAllIssues")
+        self.logger.debug("Query = %s" % query)
+        self.logger.debug("Fields = %s" % withFields)
         return self.youtrack.getAllIssues(filter=query, withFields=withFields)
 
     def updateIssuesByQuery(self, query, fieldsToUpdate, comment):
@@ -53,5 +53,5 @@ class YtClient(object):
             self.youtrack.executeCommand(issue['id'], command, comment)
 
     def getIssuesByQuery(self, query, fieldList=[]):
-        self.logger.error("getIssuesByQuery")
+        self.logger.debug("getIssuesByQuery")
         return self.youtrack.getAllIssues(filter=query, withFields=[])
