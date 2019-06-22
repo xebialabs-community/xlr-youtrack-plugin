@@ -31,11 +31,6 @@ dependencies {
     }
 }
 
-version = "1.0.3"
-
-// sourceCompatibility = 1.7
-// targetCompatibility = 1.7
-
 xlDocker {
   compileImage = 'xebialabsunsupported/xlr_dev_compile'
   compileVersion = '8.6.1'
