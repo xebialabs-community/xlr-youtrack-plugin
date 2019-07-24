@@ -21,7 +21,7 @@ import org.slf4j.LoggerFactory as LoggerFactory
 logger = LoggerFactory.getLogger("com.xebialabs.QueryTile")
 logger.debug("START")
 if not server:
-    logger.error("YouTrack server ID must be provided")
+    logger.debug("YouTrack server ID must be provided")
     raise Exception("YouTrack server ID must be provided")
 
 yt = YtClient(server, username, password)
@@ -37,7 +37,7 @@ def get_row_data(item):
             logger.debug("row_map[%s] = %s" % (column, item[column]))
             row_map[column] = item[column]
         except:
-            logger.error("column %s is bad" % column)
+            logger.debug("column %s is bad" % column)
     row_map['link'] = "%s/issue/%s" % (server['url'], item['id'])
     return row_map
 
@@ -49,7 +49,7 @@ rows= []
 logger.debug("START LOOP")
 number = 0
 for item in results:
-    logger.error("record = %s" % item)
+    logger.debug("record = %s" % item)
     row = item['id']
     rec = {}
     for key in item:
