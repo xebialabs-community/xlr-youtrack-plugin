@@ -33,10 +33,25 @@ The YouTrack server can be configured at a global level, in _Shared Configuratio
 ## Usage
 
 Tasks included in this plugin:
-1. GetIssue
-1. UpdateIssuesByQuery
-1. PollingCheckStatusQuery
-1. PollingCheckStatus
+### Get Issue
+![GetIssue](images/Get_Issue.png)
+
+### Update Issues By Query
+![UpdateIssuesByQuery](images/Update_Issues_By_Query.png)
+
+### Polling Check Status Query
+![PollingCheckStatusQuery](images/Polling_Check_Status_Query.png)
+
+### Polling Check Status
+![PollingCheckStatus](images/Polling_Check_Status.png)
+
+Dashboard tiles
+
+### Graph:
+![dashboard_tile](images/dashboard_tile.png)
+
+### Details:
+![dashboard_details](images/dashboard_details.png)
 
 ## Contributing
 
