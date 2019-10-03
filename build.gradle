@@ -33,9 +33,9 @@ dependencies {
 
 xlDocker {
   compileImage = 'xebialabsunsupported/xlr_dev_compile'
-  compileVersion = '8.6.1'
+  compileVersion = '9.0'
   runImage = 'xebialabsunsupported/xlr_dev_run'
-  runVersion = '8.6.1'
+  runVersion = '9.0'
   runPortMapping = '5516:5516'
 }
 

@@ -1,0 +1,22 @@
+---
+apiVersion: xl-release/v1
+kind: Templates
+spec:
+- directory: YouTrack
+  children:
+  - name: ytTile
+    type: xlrelease.BlankDashboard
+    owner: admin
+    tiles:
+    - name: YouTrack tickets
+      type: youtrack.QueryTile
+      width: 2
+      height: 2
+      row: 0
+      col: 0
+      server: YouTrack Server
+      detailsViewColumns:
+        State: State
+        summary: Description
+        id: Ticket
+    columns: 2

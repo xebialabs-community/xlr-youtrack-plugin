@@ -33,12 +33,15 @@ def get_row_data(item):
     row_map = {}
     for column in detailsViewColumns:
         try:
-            logger.debug("for column = %s" % column)
-            logger.debug("row_map[%s] = %s" % (column, item[column]))
+            logger.error("for column = %s" % column)
+            logger.error("row_map[%s] = %s" % (column, item[column]))
             row_map[column] = item[column]
         except:
-            logger.debug("column %s is bad" % column)
+            logger.error("column %s is bad" % column)
     row_map['link'] = "%s/issue/%s" % (server['url'], item['id'])
+    row_map['Assignee'] = item['Assignee']
+    row_map['State'] = item['State']
+    row_map['id'] = item['id']
     return row_map
 
 
@@ -48,12 +51,33 @@ logger.debug("results = %s" % results)
 rows= []
 logger.debug("START LOOP")
 number = 0
+assignee = {}
+state = {}
+people = []
 for item in results:
-    logger.debug("record = %s" % item)
+    logger.error("record = %s" % item)
     row = item['id']
     rec = {}
     for key in item:
         rec[key] = item[key]
+    if item['Assignee'] not in people:
+        people.append(item['Assignee'])
+    if item['Assignee'] in assignee.keys():
+        assignee[item['Assignee']] += 1
+    else:
+        assignee[item['Assignee']] = 1
+    if item['State'] in state.keys():
+        state[item['State']] += 1
+    else:
+        state[item['State']] = 1
     rows.append( get_row_data(rec) )
-logger.debug("END LOOP")
-data = rows
+logger.error("END LOOP")
+logger.error( json.dumps(rows, indent=4, sort_keys=True) )
+#logger.error( "detailsViewColumns %s" + json.dumps(detailsViewColumns, indent=4, sort_keys=True) )
+data = {
+            'tickets': rows,
+            'assignee': [{"name":key,"value":assignee[key]} for key in assignee.keys()],
+            'people': people,
+            'state': [{"name":key,"value":state[key]} for key in state.keys()],
+            'detailsViewColumns': detailsViewColumns
+        }

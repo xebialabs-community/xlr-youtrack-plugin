@@ -7,7 +7,7 @@
 [![Github All Releases][xlr-youtrack-plugin-downloads-image]][xlr-youtrack-plugin-releases-url]
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-blue.svg)](https://github.com/RichardLitt/standard-readme)
 
-> The YouTrack plugin enables the automated tracking and updating of YouTrack issues through XL Release
+The YouTrack plugin enables the automated tracking and updating of YouTrack issues through XL Release
 
 ## Installation
 

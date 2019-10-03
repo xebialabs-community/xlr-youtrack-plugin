@@ -1,42 +1,78 @@
-<!--
+<!-- Copyright 2019 XEBIALABS
 
-    Copyright 2019 XEBIALABS
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<div data-ng-controller="xlrelease.yt.QueryTileViewController as QueryTile" class="yt-query-tile dashboard-tile">
-
-    <div class="no-results" ng-if=" !QueryTile.invalidTableName && QueryTile.statesCounter === 0">
-        There are no YouTrack issues found
-    </div>
-    <div ng-if="!QueryTile.invalidTableName && !QueryTile.loading && QueryTile.statesCounter > 0">
-        <div class="row">
-            <div class="col-md-7">
-                <div class="highcharts-tile" donut-chart data="QueryTile.issuesSummaryData" options="QueryTile.chartOptions"></div>
-            </div>
-            <div class="col-md-5 hidden-xs hidden-sm">
-                <ul class="legend">
-                    <li class="row" ng-repeat="value in QueryTile.states | orderBy:'-counter'">
-                        <span class="col-sm-1"><span class="circle" ng-style="{'background-color': value.color}"></span></span>
-                        <span class="col-sm-1">{{value.counter}}</span>
-                        <span class="col-sm-6">{{value.state}}</span>
-                    </li>
-                    <li class="row" ng-if="QueryTile.statesCounter > 5">
-                        <span class="col-sm-2"></span>
-                        <span class="col-sm-6">More...</span>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-    <div ng-if="QueryTile.loading" class="spinner" style="text-align: center">
-        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..."/>
-    </div>
-
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="echarts.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+</head>
+<script>
+    window.addEventListener("xlrelease.load", function () {
+        window.xlrelease.queryTileData(function (response) {
+            var tickets = response.data.data.tickets;
+            var assignee = response.data.data.assignee;
+            var state = response.data.data.state;
+            var people = response.data.data.people;
+            var dom = document.getElementById("main");
+            var myChart = echarts.init(dom);
+            var app = {};
+            option = null;
+            app.title = 'Tickets';
+            option = {
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} Ticket(s) ({d}%)"
+                },
+                legend: {
+                    orient: 'vertical',
+                    type: 'scroll',
+                    x: 'left',
+                    data: state
+                  },
+                series: [
+                    {
+                        name:'Assignee',
+                        type:'pie',
+                        selectedMode: 'single',
+                        radius: [0, '45%'],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: assignee
+                    },
+                    {
+                        name:'State',
+                        type:'pie',
+                        radius: ['60%', '82.5%'],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: state
+                    }
+                ]
+            };;
+            if (option && typeof option === "object") {
+                myChart.setOption(option, true);
+            }
+        });
+    });
+</script>
+<body>
+    <div id="main" style="width:100%;height:calc(100vh - 16px);"></div>
+</body>
+</html>

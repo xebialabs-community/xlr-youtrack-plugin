@@ -1,20 +1,54 @@
 <!--
-
-    Copyright 2019 XEBIALABS
-
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
+Copyright 2019 XEBIALABS
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -->
-<div data-ng-controller="xlrelease.yt.QueryTileViewController as QueryTile" class="yt-query-tile">
-    <div ng-click="QueryTile.refresh()" title="Refresh" class="button primary">
-        <i class="glyphicon glyphicon-refresh"></i> Refresh
-    </div>
-    <div data-ng-if="QueryTile.gridOptions && !QueryTile.loading" ui-grid="QueryTile.gridOptions" class="grid-container" />
-    <div data-ng-if="QueryTile.loading" class="spinner" style="text-align: center">
-        <img src="static/@project.version@/styles/img/big-ajax-loader.gif" alt="Loading..." />
-    </div>
-</div>
+<!DOCTYPE html>
+<html>
+  <head>
+    <!-- Bootstrap CSS dependency -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous">
+    </script>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+</head>
+<script>
+    window.addEventListener("xlrelease.load", function () {
+        window.xlrelease.queryTileData(function (response) {
+            var tickets = response.data.data.tickets;
+            detailsViewColumns = response.data.data.detailsViewColumns;
+            var htmlRow = '<tr>';
+            for( var key in detailsViewColumns ) {
+              htmlRow = htmlRow + '<th>' + detailsViewColumns[key] + '</th>';
+            }
+            htmlRow = htmlRow + '</tr>';
+            $("#ticketTitles").append( htmlRow );
+            tickets.forEach(function (ticket) {
+              htmlRow = '<tr>';
+              for( var key in detailsViewColumns ) {
+                if( key == 'id' ) {
+                  htmlRow = htmlRow + '<td><a href="' + ticket['link'] + '">'  + ticket[key] + '</a></td>';
+                } else {
+                  htmlRow = htmlRow + '<td>' + ticket[key] + '</td>';
+                }
+              }
+              htmlRow = htmlRow + '</tr>';
+              $("#tickets").append( htmlRow );
+            })
+        });
+    });
+</script>
+<body>
+<table class="table table-rounded table-striped">
+    <thead id="ticketTitles">
+    </thead>
+    <tbody id="tickets">
+    </tbody>
+</table>
+</body>
+</html>

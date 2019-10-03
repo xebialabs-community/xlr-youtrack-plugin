@@ -76,12 +76,13 @@
     <!-- ============ UI extensions: ============ -->
 
     <type type="youtrack.QueryTile" label="YouTrack query tile" extends="xlrelease.Tile">
+        <property default="release,folder,global" hidden="true" name="supportedScopes" kind="list_of_string"/>
         <property name="scriptLocation" hidden="true" default="yt/QueryTile.py"/>
         <property name="uri" hidden="true" default="include/QueryTile/yt-query-summary-view.html"/>
         <property name="detailsUri" hidden="true"
                   default="include/QueryTile/yt-query-details-view.html"/>
         <property name="title" description="Tile title" default="YouTrack tickets"/>
-        <property name="embedded" kind="boolean" hidden="true" default="true" required="false"/>
+        <property name="embedded" kind="boolean" hidden="true" default="false" required="false"/>
 
         <property category="input" name="server" referenced-type="youtrack.Server" kind="ci" label="Server"
                   description="YouTrack server id to connect to"/>

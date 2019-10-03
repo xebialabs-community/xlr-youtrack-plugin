@@ -13,3 +13,4 @@ metadata:
   imports:
     - xebialabs/xlr-youtrack.yaml
     - xebialabs/xlr-ytTest.yaml
+    - xebialabs/xlr-dashboard.yaml
