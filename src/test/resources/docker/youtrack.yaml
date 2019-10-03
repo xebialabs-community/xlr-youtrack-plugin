@@ -1,9 +1,0 @@
-yt:
-    image: jetbrains/youtrack:2019.2.58110
-    volumes:
-      - ./youtrack/data:/opt/youtrack/data
-      - ./youtrack/conf:/opt/youtrack/conf
-      - ./youtrack/logs:/opt/youtrack/logs
-      - ./youtrack/backups:/opt/youtrack/backups
-    ports:
-      - "9280:8080"
